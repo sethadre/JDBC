@@ -1,0 +1,9 @@
+CREATE TABLE WritingGroups
+(
+    GroupName       VARCHAR(20) NOT NULL,
+    HeadWriter      VARCHAR(20),
+    YearFormed      DATE,
+    Subject         VARCHAR(20),
+    CONSTRAINT pk_WritingGroups PRIMARY KEY (GroupName)
+);
+
