@@ -1,3 +1,4 @@
+
 CREATE TABLE WritingGroups
 (
     GroupName       VARCHAR(20) NOT NULL,
@@ -7,3 +8,25 @@ CREATE TABLE WritingGroups
     CONSTRAINT pk_WritingGroups PRIMARY KEY (GroupName)
 );
 
+CREATE TABLE Books
+(
+      GroupName         VARCHAR(20) NOT NULL,
+      BookTitle         VARCHAR(20) NOT NULL,
+      PublisherName     VARCHAR(20) NOT NULL,
+      YearPublished     DATE,
+      NumberPages       VARCHAR(20),
+      CONSTRAINT pk_Books PRIMARY KEY(GroupName, BookTitle),
+      CONSTRAINT Books_WritingGroups_fk FOREIGN KEY (GroupName)
+        REFERENCES WritingGroups(GroupName),
+      CONSTRAINT Books_Publishers_fk FOREIGN KEY(PublisherName)
+        REFERENCES Publishers(PublisherName)
+);
+
+CREATE TABLE Publishers
+(
+    PublisherName       VARCHAR(20) NOT NULL,
+    PublisherAddress    VARCHAR(20),
+    PublisherPhone      VARCHAR(20),
+    PublisherEmail      VARCHAR(20),
+    CONSTRAINT pk_Publishers PRIMARY KEY(PublisherName)
+);
