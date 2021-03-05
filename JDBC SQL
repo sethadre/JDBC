@@ -1,32 +1,75 @@
 
 CREATE TABLE WritingGroups
 (
-    GroupName       VARCHAR(20) NOT NULL,
-    HeadWriter      VARCHAR(20),
-    YearFormed      DATE,
-    Subject         VARCHAR(20),
+    GroupName       VARCHAR(50) NOT NULL,
+    HeadWriter      VARCHAR(50),
+    YearFormed      INT,
+    Subject         VARCHAR(50),
     CONSTRAINT pk_WritingGroups PRIMARY KEY (GroupName)
 );
 
 CREATE TABLE Books
 (
-      GroupName         VARCHAR(20) NOT NULL,
-      BookTitle         VARCHAR(20) NOT NULL,
-      PublisherName     VARCHAR(20) NOT NULL,
-      YearPublished     DATE,
-      NumberPages       VARCHAR(20),
-      CONSTRAINT pk_Books PRIMARY KEY(GroupName, BookTitle),
-      CONSTRAINT Books_WritingGroups_fk FOREIGN KEY (GroupName)
+      GroupName         VARCHAR(50) NOT NULL,
+      BookTitle         VARCHAR(50) NOT NULL,
+      PublisherName     VARCHAR(50) NOT NULL,
+      YearPublished     INT,
+      NumberPages       INT,
+    CONSTRAINT Books_WritingGroups_fk FOREIGN KEY (GroupName)
         REFERENCES WritingGroups(GroupName),
-      CONSTRAINT Books_Publishers_fk FOREIGN KEY(PublisherName)
-        REFERENCES Publishers(PublisherName)
+ CONSTRAINT Books_Publishers_fk FOREIGN KEY(PublisherName)
+      REFERENCES Publishers(PublisherName),
+      CONSTRAINT pk_Books PRIMARY KEY(GroupName, BookTitle)   
 );
 
 CREATE TABLE Publishers
 (
-    PublisherName       VARCHAR(20) NOT NULL,
-    PublisherAddress    VARCHAR(20),
+    PublisherName       VARCHAR(50) NOT NULL,
+    PublisherAddress    VARCHAR(50),
     PublisherPhone      VARCHAR(20),
-    PublisherEmail      VARCHAR(20),
+    PublisherEmail      VARCHAR(50),
     CONSTRAINT pk_Publishers PRIMARY KEY(PublisherName)
 );
+
+INSERT INTO WritingGroups (GroupName, HeadWriter, YearFormed, Subject)
+    VALUES  ('The Ampersands','Jane Austen',2000,'Classic'),
+            ('Writers Collective','James Pottersby',2000,'Fiction'),
+            ('Ghost Bars','Drake',2000,'Poetry'),
+            ('Bio Hazards','S.E. Hilton',2000,'Non-Fiction'),
+            ('Capturing Space and Time','Isaac Asimov',2000,'Science Fiction'),
+            ('Nat20 Stories','Gary Gygax',1980,'Gaming Modules'),
+            ('Creative Collaborative','Jean-Eric Rhyters',2000,'Novels');
+SELECT * FROM WritingGroups;
+
+INSERT INTO Publishers(PublisherName, PublisherAddress, PublisherPhone, PublisherEmail)
+    VALUES  ('Penguin House','818 Arctic Blvd','+8 84 646 991','PenguinHouse@PolarExpress.ice'),
+            ('TOR','9177 Andromeda Lane','562-414-9177','RocketMan7@rocketmail.com'),
+            ('Capitol Records','123 Sunset Blvd Los Angeles CA','323-979-8414','SikBeatsXx@OGmail.com'),
+            ('McRaw Hill Edumacation','666 Seventh Circle Ave','666-911-BURN','complaint_dept@netscape.net'),
+            ('Wizards Of the Coast','16 Baldurs Ave','919-888-4235','Tiamat@fireball.com');
+
+SELECT * FROM Publishers;
+
+
+SELECT * FROM Books;
+
+INSERT INTO Books (BookTitle, PublisherName, YearPublished, NumberPages,GroupName)
+    VALUES  ('Curse of Strahd','Wizards Of the Coast',2016,242,'Nat20 Stories'),
+            ('Larry Hobbler and the Chalice of Malice','Penguin House',2021,617,'Writers Collective'),
+            ('Pride and Prejudice','Penguin House',1813,408,'The Ampersands');
+
+
+/*
+            ('Began Near the Foundation Now Ive Arrived','Capitol Records',2000,3,'Ghost Bars'),
+            ('Genetics Analysis and Principles','McRaw Hill Edumacation',1860,384,'Bio Hazards'),
+            ('Leviathan Wakes','Orbit',2016,534,'Capturing Space and Time'),
+            ('Curse of Strahd','Wizards Of the Coast',2016,242,'Nat20 Stories'),
+            ('History of Coffee','McRaw Hill Edumacation',2000,95,'Creative Collaborative'),
+            ('The Graveyard Book','Penguin House',2008,313,'Gang of Fiction'),
+            ('The Woman In White','Orbit',1859,800,'The Ampersands'),
+            ('Regenerative Studies','McRaw Hill Edumacation',1994,352,'Bio Hazards'),
+            ('The Restaurant at the End of the Universe','TOR',1980,208,'Capturing Space and Time',),
+            ('Tashas Cauldron of Everything','Wizards Of the Coast',2020,347,'Nat20 Stories'),
+            ('Decent Kid A.a.ngry City','Capitol Records',2014,12,'Ghost Bars'),
+            ('Rubber Duckies and Their Uses','TOR',2000,666,'Creative Collaborative');
+*/
